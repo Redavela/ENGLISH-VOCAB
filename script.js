@@ -142,7 +142,6 @@ if (window.location.pathname.includes("review.html")) {
     }
 
     document.getElementById("submit-answer-btn").addEventListener("click", checkAnswer);
-
     // Show the first word on load
     showNextWord();
 }
