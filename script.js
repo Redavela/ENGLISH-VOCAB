@@ -111,13 +111,16 @@ if (window.location.pathname.includes("review.html")) {
         document.getElementById("result-message").innerText = '';
         currentIndex = actualIndex; // Store the actual index of the word
     }
+    function normalizeString(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '');
+    }    
 
     function checkAnswer() {
         const userAnswer = document.getElementById("answer-input").value.trim().toLowerCase();
-        const userAnswers = userAnswer.split(',').map(answer => answer.trim());
+        const userAnswers = userAnswer.split(',').map(answer => normalizeString(answer.trim()));
         const correctAnswers = currentLanguage === 'english' ? currentWord.french : currentWord.english;
-        const correctAnswersLower = correctAnswers.map(answer => answer.trim().toLowerCase());
-
+        const correctAnswersLower = correctAnswers.map(answer => normalizeString(answer.trim().toLowerCase()));
+    
         let allCorrect = true;
         for (let answer of userAnswers) {
             if (!correctAnswersLower.includes(answer)) {
@@ -125,7 +128,7 @@ if (window.location.pathname.includes("review.html")) {
                 break;
             }
         }
-
+    
         if (allCorrect) {
             document.getElementById("result-message").innerText = "Correct!";
             document.getElementById("result-message").style.color = "green";
@@ -136,10 +139,11 @@ if (window.location.pathname.includes("review.html")) {
             document.getElementById("result-message").innerText = `Incorrect! Possible correct answers are: ${correctAnswers.join(', ')}.`;
             document.getElementById("result-message").style.color = "red";
         }
-
+    
         // Pass to the next word after 2 seconds
-        setTimeout(showNextWord, 2000);
+        setTimeout(showNextWord, 3000);
     }
+    
 
     document.getElementById("submit-answer-btn").addEventListener("click", checkAnswer);
     // Show the first word on load
