@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Vocabulary</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Vocabulary</h1>
+        <form id="vocabulary-form">
+            <div id="vocabulary-entries">
+                <div class="entry">
+                    <input type="text" placeholder="English word(s), separated by commas" class="english-word">
+                    <input type="text" placeholder="French word(s), separated by commas" class="french-word">
+                </div>
+            </div>
+            <button type="button" id="add-entry-btn">Add Another Entry</button>
+            <button type="submit">Start Revising</button>
+        </form>
+        <div>
+            <h2>Or Import Vocabulary from File</h2>
+            <input type="file" id="file-input" accept=".json">
+        </div>
+    </div>
+
+        <!-- Modal for error messages -->
+        <div id="error-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p id="error-message"></p>
+            </div>
+        </div>
+        
+    <script src="script.js"></script>
+</body>
+</html>

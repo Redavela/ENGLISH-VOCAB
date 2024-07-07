@@ -1,0 +1,147 @@
+/* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+h1 {
+    color: #333;
+}
+
+h2 {
+    color: #666;
+    margin-top: 20px;
+}
+
+/* Formulaire de vocabulaire */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.entry {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.entry input {
+    width: 48%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#add-entry-btn, #file-input, #next-word-btn, #submit-answer-btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #6BB9F0; /* Bleu plus clair */
+    color: white;
+    cursor: pointer;
+}
+
+#add-entry-btn:hover, #next-word-btn:hover, #submit-answer-btn:hover {
+    background-color: #5DADE2; /* Bleu encore plus clair pour le hover */
+}
+
+#file-input {
+    padding: 10px 0;
+    background-color: transparent;
+    color: #6BB9F0;
+    text-align: center;
+}
+
+#file-input:hover {
+    background-color: #f0f0f0;
+}
+
+/* Styles pour le modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#error-message {
+    color: red;
+}
+
+/* Page de révision */
+#word-container {
+    margin: 20px 0;
+    padding: 20px;
+    background: #e0e0e0;
+    border-radius: 8px;
+}
+
+#word {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#answer-input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#result-message {
+    font-size: 18px;
+    margin-top: 10px;
+}
