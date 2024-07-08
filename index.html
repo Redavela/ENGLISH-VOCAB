@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Vocabulary Revision</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>English Vocabulary Revision</title>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    
 <body>
+    <div class="background-title">ENGLISH</div>
     <div class="container">
         <h1>Enter Vocabulary</h1>
         <p id="instructions">Please enter an English word or phrase in the left box and its translation(s) in French in the right box. If there are multiple translations, separate them with a comma.</p>
@@ -17,8 +20,10 @@
                     <input type="text" placeholder="French word(s), separated by commas" class="french-word">
                 </div>
             </div>
-            <button type="button" id="add-entry-btn">Add Entry</button>
-            <button type="submit">Submit</button>
+            <div class="button-group">
+                <button type="button" id="add-entry-btn">Add Entry</button>
+                <button type="submit">Submit</button>
+            </div>
             <input type="file" id="file-input" accept=".json">
         </form>
         <div id="error-modal" class="modal">
@@ -27,7 +32,7 @@
                 <p id="error-message"></p>
             </div>
         </div>
-    </div>
+    </div>    
     <script src="index.js"></script>
 </body>
 </html>

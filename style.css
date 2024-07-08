@@ -6,17 +6,19 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background: rgba(255, 89, 89, 0.21);
 }
 
 .container {
     text-align: center;
-    background: white;
-    padding: 20px;
+    padding: 50px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 500px;
     width: 100%;
+    backdrop-filter: blur(7.8px);
+    -webkit-backdrop-filter: blur(7.8px);
+    border: 1px solid rgba(255, 255, 255, 0.38);/* Effet de flou pour renforcer l'effet cristal */
 }
 
 h1 {
@@ -47,11 +49,11 @@ form {
     width: 48%;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid #5DADE2;
     border-radius: 4px;
 }
 
-#add-entry-btn, #file-input, #submit-answer-btn {
+#add-entry-btn, #submit-answer-btn, button {
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px 20px;
@@ -63,19 +65,18 @@ form {
     cursor: pointer;
 }
 
-#add-entry-btn:hover, #submit-answer-btn:hover {
+#add-entry-btn:hover, #submit-answer-btn:hover, button:hover {
     background-color: #5DADE2; /* Bleu encore plus clair pour le hover */
 }
 
 #file-input {
-    padding: 10px 0;
+    padding: 10px ;
+    margin-top: 25px;
+    border: 2px solid #5DADE2;
+    border-radius: 5px;
     background-color: transparent;
     color: #6BB9F0;
     text-align: center;
-}
-
-#file-input:hover {
-    background-color: #f0f0f0;
 }
 
 /* Styles pour le modal */
@@ -126,19 +127,25 @@ ul {
     padding: 0;
     margin: 0;
 }
- #word-container{
-    background: #d9d9d9;
+
+#word-container {
     border-radius: 5px;
-    padding: 15px;
+    border: 1px solid #5DADE2;
+    padding: 30px;
     margin: auto;
     width: 50%;
- }
+}
 
- #answer-input{
+#answer-input {
     padding: 10px;
     border-radius: 5px;
- }
- /* Instructions paragraph style */
+    border: 1px solid #5DADE2;
+}
+#result-message,#warning-message{
+    margin-top: 25px;
+    font-size: larger;
+}
+/* Instructions paragraph style */
 #instructions {
     margin: 20px;
     padding: 15px;
@@ -148,7 +155,16 @@ ul {
     font-size: larger;
     color: black;
 }
-button{
+
+/* Aligning buttons side by side */
+.button-group {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+button {
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px 20px;
@@ -158,4 +174,18 @@ button{
     background-color: #6BB9F0;
     color: white;
     cursor: pointer;
+    flex: 1; /* Ensure buttons are of equal size */
+}
+
+.background-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    font-size: 200px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+    z-index: 0;
+    font-family: 'Oswald', sans-serif; 
 }
