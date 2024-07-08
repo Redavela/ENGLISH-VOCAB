@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enter Vocabulary</title>
+    <title>English Vocabulary Revision</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Enter Vocabulary</h1>
+        <p id="instructions">Please enter an English word or phrase in the left box and its translation(s) in French in the right box. If there are multiple translations, separate them with a comma.</p>
         <form id="vocabulary-form">
             <div id="vocabulary-entries">
                 <div class="entry">
@@ -16,23 +17,17 @@
                     <input type="text" placeholder="French word(s), separated by commas" class="french-word">
                 </div>
             </div>
-            <button type="button" id="add-entry-btn">Add Another Entry</button>
-            <button type="submit">Start Revising</button>
-        </form>
-        <div>
-            <h2>Or Import Vocabulary from File</h2>
+            <button type="button" id="add-entry-btn">Add Entry</button>
+            <button type="submit">Submit</button>
             <input type="file" id="file-input" accept=".json">
-        </div>
-    </div>
-
-        <!-- Modal for error messages -->
+        </form>
         <div id="error-modal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <p id="error-message"></p>
             </div>
         </div>
-        
-    <script src="script.js"></script>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>

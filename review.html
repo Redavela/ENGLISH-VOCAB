@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Vocabulary Revision</title>
+    <title>Review Vocabulary</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>English Vocabulary Revision</h1>
+        <h1>Review Vocabulary</h1>
         <div id="word-container">
-            <p id="word">Word</p>
+            <div id="word"></div>
         </div>
-        <input type="text" id="answer-input" placeholder="Your answer here">
-        <p id="warning-message" style="color: red; display: none;">Please write something before submitting.</p>
+        <input type="text" id="answer-input" placeholder="Enter your answer">
         <button id="submit-answer-btn" disabled>Submit Answer</button>
-        <p id="result-message"></p>
+        <div id="result-message"></div>
+        <div id="warning-message" style="display: none; color: red;">Please enter a valid answer.</div>
     </div>
-    <script src="script.js"></script>
+    <script src="review.js"></script>
 </body>
 </html>

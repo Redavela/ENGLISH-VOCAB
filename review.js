@@ -1,84 +1,6 @@
-// Script pour la page d'accueil (index.html)
-
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("vocabulary-form");
-    const addEntryBtn = document.getElementById("add-entry-btn");
-    const fileInput = document.getElementById("file-input");
-    const modal = document.getElementById("error-modal");
-    const span = document.getElementsByClassName("close")[0];
-    const errorMessage = document.getElementById("error-message");
-
-    addEntryBtn.addEventListener("click", () => {
-        const entryDiv = document.createElement("div");
-        entryDiv.classList.add("entry");
-        entryDiv.innerHTML = `
-            <input type="text" placeholder="English word(s), separated by commas" class="english-word">
-            <input type="text" placeholder="French word(s), separated by commas" class="french-word">
-        `;
-        document.getElementById("vocabulary-entries").appendChild(entryDiv);
-    });
-
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const englishWords = document.querySelectorAll(".english-word");
-        const frenchWords = document.querySelectorAll(".french-word");
-
-        let vocabulary = [];
-        for (let i = 0; i < englishWords.length; i++) {
-            let english = englishWords[i].value.trim();
-            let french = frenchWords[i].value.trim();
-            if (english && french) {
-                vocabulary.push({ english: english.split(',').map(word => word.trim()), french: french.split(',').map(word => word.trim()) });
-            }
-        }
-
-        localStorage.setItem("vocabulary", JSON.stringify(vocabulary));
-        window.location.href = "review.html";
-    });
-
-    fileInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-            const content = e.target.result;
-            try {
-                const importedVocabulary = JSON.parse(content);
-                if (Array.isArray(importedVocabulary) && importedVocabulary.every(item => item.english && item.french)) {
-                    localStorage.setItem("vocabulary", JSON.stringify(importedVocabulary));
-                    window.location.href = "review.html";
-                } else {
-                    showErrorModal("Invalid JSON format. Please ensure the JSON file contains an array of objects with 'english' and 'french' properties.");
-                }
-            } catch (error) {
-                showErrorModal("Invalid JSON file.");
-            }
-        };
-
-        if (file) {
-            reader.readAsText(file);
-        }
-    });
-
-    function showErrorModal(message) {
-        errorMessage.innerText = message;
-        modal.style.display = "block";
-    }
-
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-});
-
 // Script pour la page de révision (review.html)
 
-if (window.location.pathname.includes("review.html")) {
+document.addEventListener("DOMContentLoaded", () => {
     const vocabulary = JSON.parse(localStorage.getItem("vocabulary")) || [];
     let currentWord = {};
     let currentLanguage = '';
@@ -108,9 +30,9 @@ if (window.location.pathname.includes("review.html")) {
         wordContainer.innerHTML = ''; // Clear previous words
 
         // Create a list of words
-        const ul = document.createElement('ul');
+        const ul = document.createElement("ul");
         wordList.forEach(word => {
-            const li = document.createElement('li');
+            const li = document.createElement("li");
             li.textContent = word;
             ul.appendChild(li);
         });
@@ -182,12 +104,12 @@ if (window.location.pathname.includes("review.html")) {
             document.getElementById("result-message").style.color = "red";
         }
 
-        // Re-enable the submit button and input field after 3 seconds
+        // Re-enable the submit button and input field after 2.5 seconds
         setTimeout(() => {
             document.getElementById("submit-answer-btn").disabled = false;
             document.getElementById("answer-input").disabled = false;
             showNextWord();
-        }, 3000);
+        }, 2500);
     }
 
     document.getElementById("submit-answer-btn").addEventListener("click", () => {
@@ -220,4 +142,4 @@ if (window.location.pathname.includes("review.html")) {
 
     // Show the first word on load
     showNextWord();
-}
+});
