@@ -104,48 +104,120 @@ if (window.location.pathname.includes("review.html")) {
         currentLanguage = Math.random() >= 0.5 ? 'english' : 'french';
 
         const wordList = currentWord[currentLanguage];
-        const wordDisplay = wordList.join(', ');  // Affiche tous les mots disponibles
+        const wordContainer = document.getElementById("word");
+        wordContainer.innerHTML = ''; // Clear previous words
 
-        document.getElementById("word").innerText = wordDisplay;
+        // Create a list of words
+        const ul = document.createElement('ul');
+        wordList.forEach(word => {
+            const li = document.createElement('li');
+            li.textContent = word;
+            ul.appendChild(li);
+        });
+        wordContainer.appendChild(ul);
+
         document.getElementById("answer-input").value = '';
         document.getElementById("result-message").innerText = '';
+        document.getElementById("warning-message").style.display = 'none';
+        document.getElementById("submit-answer-btn").disabled = true;
         currentIndex = actualIndex; // Store the actual index of the word
     }
+
     function normalizeString(str) {
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '');
-    }    
+    }
 
     function checkAnswer() {
         const userAnswer = document.getElementById("answer-input").value.trim().toLowerCase();
+        if (userAnswer === '' || !/[a-zA-Z0-9]/.test(userAnswer)) {
+            document.getElementById("warning-message").style.display = 'block';
+            return;
+        }
+
+        document.getElementById("warning-message").style.display = 'none';
         const userAnswers = userAnswer.split(',').map(answer => normalizeString(answer.trim()));
         const correctAnswers = currentLanguage === 'english' ? currentWord.french : currentWord.english;
         const correctAnswersLower = correctAnswers.map(answer => normalizeString(answer.trim().toLowerCase()));
-    
+
         let allCorrect = true;
-        for (let answer of userAnswers) {
+        let hasIncorrectAnswer = false;
+        let missingAnswers = [];
+
+        // Check for correct and missing answers
+        userAnswers.forEach(answer => {
             if (!correctAnswersLower.includes(answer)) {
-                allCorrect = false;
-                break;
+                hasIncorrectAnswer = true;
             }
-        }
-    
-        if (allCorrect) {
+        });
+
+        correctAnswersLower.forEach(answer => {
+            if (!userAnswers.includes(answer)) {
+                missingAnswers.push(answer);
+                allCorrect = false;
+            }
+        });
+
+        // Disable the submit button and input field during the 3-second timeout
+        document.getElementById("submit-answer-btn").disabled = true;
+        document.getElementById("answer-input").disabled = true;
+
+        if (!hasIncorrectAnswer && userAnswers.length === correctAnswersLower.length && allCorrect) {
             document.getElementById("result-message").innerText = "Correct!";
             document.getElementById("result-message").style.color = "green";
             if (!correctlyAnsweredWords.includes(currentIndex)) {
                 correctlyAnsweredWords.push(currentIndex);
             }
+        } else if (!hasIncorrectAnswer && userAnswers.length < correctAnswersLower.length) {
+            let missingAnswersMessage = '';
+            if (missingAnswers.length > 0) {
+                missingAnswersMessage = ` You could have also said: <ul>${missingAnswers.map(answer => `<li>${correctAnswers[correctAnswersLower.indexOf(answer)]}</li>`).join('')}</ul>`;
+            }
+            document.getElementById("result-message").innerHTML = `Correct!${missingAnswersMessage}`;
+            document.getElementById("result-message").style.color = "orange";
+            if (!correctlyAnsweredWords.includes(currentIndex)) {
+                correctlyAnsweredWords.push(currentIndex);
+            }
         } else {
-            document.getElementById("result-message").innerText = `Incorrect! Possible correct answers are: ${correctAnswers.join(', ')}.`;
+            document.getElementById("result-message").innerHTML = `Incorrect! Possible correct answers are: <ul>${correctAnswers.map(answer => `<li>${answer}</li>`).join('')}</ul>`;
             document.getElementById("result-message").style.color = "red";
         }
-    
-        // Pass to the next word after 2 seconds
-        setTimeout(showNextWord, 3000);
-    }
-    
 
-    document.getElementById("submit-answer-btn").addEventListener("click", checkAnswer);
+        // Re-enable the submit button and input field after 3 seconds
+        setTimeout(() => {
+            document.getElementById("submit-answer-btn").disabled = false;
+            document.getElementById("answer-input").disabled = false;
+            showNextWord();
+        }, 3000);
+    }
+
+    document.getElementById("submit-answer-btn").addEventListener("click", () => {
+        const userInput = document.getElementById("answer-input").value.trim();
+        if (userInput === '') {
+            document.getElementById("warning-message").style.display = 'block';
+        } else {
+            checkAnswer();
+        }
+    });
+
+    // Enable the submit button if there is input
+    document.getElementById("answer-input").addEventListener("input", function() {
+        const userInput = document.getElementById("answer-input").value.trim();
+        document.getElementById("submit-answer-btn").disabled = userInput === '';
+    });
+
+    // Add event listener for Enter key
+    document.getElementById("answer-input").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            const userInput = document.getElementById("answer-input").value.trim();
+            if (userInput === '') {
+                document.getElementById("warning-message").style.display = 'block';
+            } else {
+                checkAnswer();
+            }
+        }
+    });
+
     // Show the first word on load
     showNextWord();
 }

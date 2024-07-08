@@ -51,7 +51,7 @@ form {
     border-radius: 4px;
 }
 
-#add-entry-btn, #file-input, #next-word-btn, #submit-answer-btn {
+#add-entry-btn, #file-input, #submit-answer-btn {
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px 20px;
@@ -63,7 +63,7 @@ form {
     cursor: pointer;
 }
 
-#add-entry-btn:hover, #next-word-btn:hover, #submit-answer-btn:hover {
+#add-entry-btn:hover, #submit-answer-btn:hover {
     background-color: #5DADE2; /* Bleu encore plus clair pour le hover */
 }
 
@@ -120,28 +120,21 @@ form {
     color: red;
 }
 
-/* Page de révision */
-#word-container {
-    margin: 20px 0;
-    padding: 20px;
-    background: #e0e0e0;
-    border-radius: 8px;
+/* Remove bullets from lists */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
+ #word-container{
+    background: #d9d9d9;
+    border-radius: 5px;
+    padding: 15px;
+    margin: auto;
+    width: 50%;
+ }
 
-#word {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-#answer-input {
-    width: calc(100% - 22px);
+ #answer-input{
     padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#result-message {
-    font-size: 18px;
-    margin-top: 10px;
-}
+    border-radius: 5px;
+ }
