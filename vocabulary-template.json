@@ -1,0 +1,10 @@
+[
+    {
+        "english": ["example"],
+        "french": ["exemple"]
+    },
+    {
+        "english": ["word1", "word2"],
+        "french": ["mot1", "mot2"]
+    }
+]

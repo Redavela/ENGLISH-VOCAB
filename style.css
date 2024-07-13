@@ -189,3 +189,20 @@ button {
     z-index: 0;
     font-family: 'Oswald', sans-serif; 
 }
+/* Styles for download link */
+.download-link {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 2px solid #5DADE2;
+    border-radius: 4px;
+    background-color: #6BB9F0;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.download-link:hover {
+    background-color: #5DADE2; /* Bleu encore plus clair pour le hover */
+}
