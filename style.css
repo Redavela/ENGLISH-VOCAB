@@ -206,3 +206,17 @@ button {
 .download-link:hover {
     background-color: #5DADE2; /* Bleu encore plus clair pour le hover */
 }
+/* Styles for the back button */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 40px;
+    color: black;
+    text-decoration: none;
+    transition: color 0.3s; 
+}
+
+.back-button:hover {
+    color: white;
+}
