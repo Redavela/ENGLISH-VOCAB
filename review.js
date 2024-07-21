@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentWord = {};
     let currentLanguage = '';
     let currentIndex = 0;
-    let correctlyAnsweredWords = [];
+    let correctlyAnsweredWords = new Set();
+    let incorrectlyAnsweredWords = new Set();
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
@@ -14,10 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
     function showNextWord() {
         if (vocabulary.length === 0) return;
 
-        let remainingWords = vocabulary.filter((_, index) => !correctlyAnsweredWords.includes(index));
-        if (remainingWords.length === 0) {
-            correctlyAnsweredWords = []; // Reset if all words are answered correctly
+        let remainingWords = vocabulary.filter((_, index) => !correctlyAnsweredWords.has(index));
+
+        // If all words have been answered correctly and no incorrect words, reset the lists
+        if (remainingWords.length === 0 && incorrectlyAnsweredWords.size === 0) {
+            correctlyAnsweredWords.clear();
             remainingWords = vocabulary;
+        } else if (remainingWords.length === 0) {
+            remainingWords = vocabulary.filter((_, index) => incorrectlyAnsweredWords.has(index));
         }
 
         currentIndex = getRandomInt(remainingWords.length);
@@ -79,16 +84,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Disable the submit button and input field during the 3-second timeout
+        // Disable the submit button and input field during the 2.5-second timeout
         document.getElementById("submit-answer-btn").disabled = true;
         document.getElementById("answer-input").disabled = true;
 
         if (!hasIncorrectAnswer && userAnswers.length === correctAnswersLower.length && allCorrect) {
             document.getElementById("result-message").innerText = "Correct!";
             document.getElementById("result-message").style.color = "green";
-            if (!correctlyAnsweredWords.includes(currentIndex)) {
-                correctlyAnsweredWords.push(currentIndex);
-            }
+            correctlyAnsweredWords.add(currentIndex);
+            incorrectlyAnsweredWords.delete(currentIndex);
         } else if (!hasIncorrectAnswer && userAnswers.length < correctAnswersLower.length) {
             let missingAnswersMessage = '';
             if (missingAnswers.length > 0) {
@@ -96,12 +100,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             document.getElementById("result-message").innerHTML = `Correct!${missingAnswersMessage}`;
             document.getElementById("result-message").style.color = "orange";
-            if (!correctlyAnsweredWords.includes(currentIndex)) {
-                correctlyAnsweredWords.push(currentIndex);
-            }
+            correctlyAnsweredWords.add(currentIndex);
+            incorrectlyAnsweredWords.delete(currentIndex);
         } else {
             document.getElementById("result-message").innerHTML = `Incorrect! Possible correct answers are: <ul>${correctAnswers.map(answer => `<li>${answer}</li>`).join('')}</ul>`;
             document.getElementById("result-message").style.color = "red";
+            incorrectlyAnsweredWords.add(currentIndex);
         }
 
         // Re-enable the submit button and input field after 2.5 seconds
